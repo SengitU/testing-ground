@@ -7,6 +7,7 @@ chai.use(require('sinon-chai'));
 class Game {
   constructor() {
     this.score = 0;
+    this.frame = 1;
   }
 
 
@@ -16,6 +17,10 @@ class Game {
 
   totalScore() {
     return this.score;
+  }
+
+  getFrame() {
+    return this.frame;
   }
 }
 
@@ -36,8 +41,18 @@ describe("Bowling Game", () => {
       expect(score).to.equals(3);
   });
 
-  xit("should return frame number 1 before any rolls", () => {
-      expect(frame).to.equals(1);
+  it("should return frame number 1 before any rolls", () => {
+    const game = new Game();
+    const frame = game.getFrame();
+    expect(frame).to.equals(1);
+  });
+
+  it("should return 5 if user rolled 3, 2", () => {
+    const game = new Game();
+    game.roll(3);
+    game.roll(2);
+    const score = game.totalScore();
+    expect(score).to.equals(5);
   });
 
 
