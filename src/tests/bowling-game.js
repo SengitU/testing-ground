@@ -50,7 +50,7 @@ class Game {
   totalScore() {
     let score = 0;
     this.frame.forEach(frame => {
-      score = frame.score.reduce((total, score) => total += score, 0);
+      score += frame.score.reduce((total, score) => total += score, 0);
     });
     return score;
   }
