@@ -131,11 +131,4 @@ describe("Bowling Game", () => {
     expect(frame).to.equals(4);
   });
 
-
-
-
-
-
-
-
 });
