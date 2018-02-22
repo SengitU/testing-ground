@@ -62,6 +62,9 @@ class Game {
 
 
 describe("Bowling Game", () => {
+
+  const rolls = (game, ...scores) => scores.forEach( score => game.roll(score));
+
   it("should return 0 if player did not hit any", () => {
       const game = new Game();
       const score = game.totalScore();
@@ -119,16 +122,25 @@ describe("Bowling Game", () => {
 
   it("should increase the number of frames after one spare and 4 rolls", () => {
     const game = new Game();
-    const rolls = (...scores) => scores.forEach( score => game.roll(score));
 
-    rolls(8, 2);
-    rolls(7, 2);
-    rolls(1, 1);
-    rolls(1);
+    rolls(game, 8, 2);
+    rolls(game, 7, 2);
+    rolls(game, 1, 1);
+    rolls(game, 1);
 
     const frame = game.getFrame();
 
     expect(frame).to.equals(4);
   });
+
+  it('should return 21 if player hit scored 21 without spare or strike',() => {
+    const game = new Game();
+
+    rolls(game, 3, 2);
+    rolls(game, 7, 2);
+    rolls(game, 6, 1);
+
+    expect(game.totalScore()).to.equals(21);
+  })
 
 });
