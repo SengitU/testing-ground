@@ -122,14 +122,10 @@ describe("Bowling Game", () => {
     const rolls = (...scores) => scores.forEach( score => game.roll(score));
 
     rolls(8, 2);
+    rolls(7, 2);
+    rolls(1, 1);
+    rolls(1);
 
-    game.roll(7);
-    game.roll(2);
-
-    game.roll(1);
-    game.roll(1);
-
-    game.roll(1);
     const frame = game.getFrame();
 
     expect(frame).to.equals(4);
