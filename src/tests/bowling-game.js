@@ -6,17 +6,17 @@ chai.use(require('sinon-chai'));
 
 class Game {
   constructor() {
-    this.score = 0;
+    this.score = [];
     this.frame = 1;
   }
 
 
   roll(newScore) {
-    this.score = newScore;
+    this.score.push(newScore);
   }
 
   totalScore() {
-    return this.score;
+    return this.score.reduce((total, score) => total += score, 0);
   }
 
   getFrame() {
