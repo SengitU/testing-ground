@@ -42,7 +42,6 @@ class Game {
     if(!this.isFrameExists()) this.createFrame();
     const currentFrame = this.getCurrentFrame();
     currentFrame.score.push(newScore);
-    if(this.isSpare()) return;
     if(currentFrame.score.length > 1 || this.isStrike()) {
       this.endFrame();
     }
