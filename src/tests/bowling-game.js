@@ -117,14 +117,18 @@ describe("Bowling Game", () => {
     expect(frame).to.equals(2);
   });
 
-  xit("should be frame numbers correctly in multiple frames", () => {
+  it("should increase the number of frames after one spare and 4 rolls", () => {
     const game = new Game();
-    game.roll(8);
+    const rolls = (...scores) => scores.forEach( score => game.roll(score));
+
+    rolls(8, 2);
+
+    game.roll(7);
     game.roll(2);
-    game.roll(7);
-    game.roll(7);
+
     game.roll(1);
     game.roll(1);
+
     game.roll(1);
     const frame = game.getFrame();
 
