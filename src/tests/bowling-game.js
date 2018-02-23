@@ -18,13 +18,11 @@ class Game {
     return this.frame[this.currentFrame];
   }
 
-  isSpare() {
-    const frame = this.getCurrentFrame();
+  isSpare(frame) {
     return frame.score.length > 1 && frame.score[0] + frame.score[1] === 10;
   }
 
-  isStrike() {
-    const frame = this.getCurrentFrame();
+  isStrike(frame) {
     return frame.score.length === 1 && frame.score[0] === 10;
   }
 
@@ -42,15 +40,20 @@ class Game {
     if(!this.isFrameExists()) this.createFrame();
     const currentFrame = this.getCurrentFrame();
     currentFrame.score.push(newScore);
-    if(currentFrame.score.length > 1 || this.isStrike()) {
+    if(currentFrame.score.length > 1 || this.isStrike(currentFrame)) {
       this.endFrame();
     }
   }
 
   totalScore() {
     let score = 0;
+    let spare = 0;
     this.frame.forEach(frame => {
+      if(spare !== 0) {
+        score += frame.score[0];
+      }
       score += frame.score.reduce((total, score) => total += score, 0);
+      if(this.isSpare(frame)) spare++;
     });
     return score;
   }
@@ -141,6 +144,15 @@ describe("Bowling Game", () => {
     rolls(game, 6, 1);
 
     expect(game.totalScore()).to.equals(21);
+  })
+
+  it('should return 18 if user makes a spare, afterwards rolls 2 and 4',() => {
+    const game = new Game();
+
+    rolls(game, 7, 3);
+    rolls(game, 2, 4);
+
+    expect(game.totalScore()).to.equals(18);
   })
 
 });
