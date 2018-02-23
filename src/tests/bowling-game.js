@@ -201,7 +201,7 @@ describe("Bowling Game", () => {
     expect(game.totalScore()).to.equals(60);
   })
 
-  xit('should return 300 for a perfect game',() => {
+  it('should return 300 for a perfect game',() => {
     const game = new Game();
 
     rolls(game, 10);
@@ -237,6 +237,23 @@ describe("Bowling Game", () => {
     rolls(game, 10);
 
     expect(game.getFrame()).to.equals(10);
+  })
+
+  it('should calculate correctly the spare happens at last turn', () => {
+    const game = new Game();
+
+    rolls(game, 1, 1);
+    rolls(game, 1, 1);
+    rolls(game, 1, 1);
+    rolls(game, 1, 1);
+    rolls(game, 1, 1);
+    rolls(game, 1, 1);
+    rolls(game, 1, 1);
+    rolls(game, 1, 1);
+    rolls(game, 1, 1);
+    rolls(game, 2, 8, 10);
+
+    expect(game.totalScore()).to.equals(38);
   })
 
 
