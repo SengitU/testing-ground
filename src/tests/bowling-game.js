@@ -40,6 +40,7 @@ class Game {
     if(!this.isFrameExists()) this.createFrame();
     const currentFrame = this.getCurrentFrame();
     currentFrame.score.push(newScore);
+    if(this.currentFrame === 9) return;
     if(currentFrame.score.length > 1 || this.isStrike(currentFrame)) {
       this.endFrame();
     }
@@ -199,6 +200,47 @@ describe("Bowling Game", () => {
 
     expect(game.totalScore()).to.equals(60);
   })
+
+  xit('should return 300 for a perfect game',() => {
+    const game = new Game();
+
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+
+    expect(game.totalScore()).to.equals(300);
+  })
+
+  it('should return frame number 10 for 12 strike',() => {
+    const game = new Game();
+
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+
+    expect(game.getFrame()).to.equals(10);
+  })
+
+
+
 
 
 });
