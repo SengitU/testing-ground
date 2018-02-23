@@ -255,9 +255,4 @@ describe("Bowling Game", () => {
 
     expect(game.totalScore()).to.equals(38);
   })
-
-
-
-
-
 });
