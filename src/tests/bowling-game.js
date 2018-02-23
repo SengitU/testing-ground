@@ -48,12 +48,19 @@ class Game {
   totalScore() {
     let score = 0;
     let spare = 0;
+    let strike = 0;
+
     this.frame.forEach(frame => {
       if(spare !== 0) {
         score += frame.score[0];
       }
+      if(strike > 0) {
+        score += frame.score[0];
+        score += frame.score[1];
+      }
       score += frame.score.reduce((total, score) => total += score, 0);
       if(this.isSpare(frame)) spare++;
+      if(this.isStrike(frame)) strike += 2;
     });
     return score;
   }
@@ -153,6 +160,15 @@ describe("Bowling Game", () => {
     rolls(game, 2, 4);
 
     expect(game.totalScore()).to.equals(18);
+  })
+
+  it('should return 20 if user makes a strike, followed by 2, 3 rolls',() => {
+    const game = new Game();
+
+    rolls(game, 10);
+    rolls(game, 2, 3);
+
+    expect(game.totalScore()).to.equals(20);
   })
 
 });
