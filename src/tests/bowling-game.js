@@ -45,23 +45,42 @@ class Game {
     }
   }
 
+  calculateStrikes(strikes, frame) {
+    let score = 0;
+    strikes.forEach(strike => {
+      frame.score.forEach(frameScore => {
+        if(strike.remaining > 0) {
+          score += frameScore;
+          strike.remaining--;
+        }
+      });
+    });
+    return score;
+  }
+
+  clearEmptyStrikes(strikes) {
+    return strikes.reduce((acc, strike) => strike.remaining > 0 ? [...acc, strike] : acc , [])
+  }
+
   totalScore() {
     let score = 0;
     let spare = 0;
-    let strike = 0;
+    let strikes = [];
 
-    this.frame.forEach(frame => {
+    this.frame.forEach((frame, index) => {
       if(spare !== 0) {
         score += frame.score[0];
       }
-      if(strike > 0) {
-        score += frame.score[0];
-        score += frame.score[1];
-      }
+
+      score += this.calculateStrikes(strikes, frame);
+
       score += frame.score.reduce((total, score) => total += score, 0);
+
       if(this.isSpare(frame)) spare++;
-      if(this.isStrike(frame)) strike += 2;
+      if(this.isStrike(frame)) strikes.push({frame: index, remaining: 2});
     });
+
+    strikes = this.clearEmptyStrikes(strikes);
     return score;
   }
 
@@ -170,5 +189,16 @@ describe("Bowling Game", () => {
 
     expect(game.totalScore()).to.equals(20);
   })
+
+  it('should return 60 for three consecutive strikes',() => {
+    const game = new Game();
+
+    rolls(game, 10);
+    rolls(game, 10);
+    rolls(game, 10);
+
+    expect(game.totalScore()).to.equals(60);
+  })
+
 
 });
