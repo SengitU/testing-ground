@@ -6,12 +6,13 @@ chai.use(require('sinon-chai'));
 
 
 const r2a = (number) => {
-  if(number === 'I') return 1;
+  const lookup = { I: 1, V: 5, X: 10 };
+
+  if(lookup[number]) return lookup[number];
+
   if(number === 'II') return 2;
   if(number === 'III') return 3;
   if(number === 'IV') return 4;
-  if(number === 'V') return 5;
-  if(number === 'X') return 10;
 
   return 0;
 }
