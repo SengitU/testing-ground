@@ -5,7 +5,8 @@
   "scripts": {
     "test": "mocha src/tests/*",
     "test-watch": "mocha --watch --require babel-polyfill --compilers js:babel-register src/tests/*",
-    "test-bowl": "mocha --watch --require babel-polyfill --compilers js:babel-register src/tests/bowling-game.js"
+    "test-bowl": "mocha --watch --require babel-polyfill --compilers js:babel-register src/tests/bowling-game.js",
+    "test-roman-numerals-conversion": "mocha --watch --require babel-polyfill --compilers js:babel-register src/tests/roman-numerals-conversion.js"
   },
   "author": "sengitu",
   "devDependencies": {
