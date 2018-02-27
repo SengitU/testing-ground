@@ -4,15 +4,15 @@ const expect = chai.expect;
 
 chai.use(require('sinon-chai'));
 
-
 const r2a = (number) => {
   const lookup = { I: 1, V: 5, X: 10 };
+  const symbols = number.split('');
 
   if(lookup[number]) return lookup[number];
 
-  if(number === 'II') return r2a('I') + r2a('I');
-  if(number === 'III') return r2a('I') + r2a('I') + r2a('I');
-  if(number === 'IV') return r2a('I') * -1 + r2a('V');
+  if(number === 'II') return r2a(symbols[0]) * 1 + r2a(symbols[1]);
+  if(number === 'III') return r2a(symbols[0]) * 1 + r2a(symbols[1]) * 1 + r2a(symbols[2]);
+  if(number === 'IV') return r2a(symbols[0]) * -1 + r2a(symbols[1]);
 
   return 0;
 }
