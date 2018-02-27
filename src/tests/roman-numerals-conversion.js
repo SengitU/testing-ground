@@ -8,16 +8,17 @@ chai.use(require('sinon-chai'));
 
 const lookup = { I: 1, V: 5, X: 10 };
 
-const getMultiplier = (current, next) => lookup[current] >= lookup[next] ? 1: -1;
+const getMultiplier = (current, next = 'I') => lookup[current] >= lookup[next] ? 1: -1;
+const getValueForAddition = (current, next) => r2a(current) * getMultiplier(current, next);
 
 const r2a = (number) => {
   const symbols = number.split('');
 
-  if(lookup[number]) return lookup[number];
+  if(number.length === 1) return lookup[number];
 
-  if(number === 'II') return r2a(symbols[0]) * getMultiplier(symbols[0], symbols[1]) + r2a(symbols[1]);
-  if(number === 'III') return r2a(symbols[0]) * getMultiplier(symbols[0], symbols[1]) + r2a(symbols[1]) *  getMultiplier(symbols[1], symbols[2]) + r2a(symbols[2]);
-  if(number === 'IV') return r2a(symbols[0]) * getMultiplier(symbols[0], symbols[1])  + r2a(symbols[1]);
+  if(number === 'II') return getValueForAddition(symbols[0], symbols[1]) + getValueForAddition(symbols[1], symbols[2]);
+  if(number === 'III') return getValueForAddition(symbols[0], symbols[1]) + getValueForAddition(symbols[1], symbols[2]) + getValueForAddition(symbols[2], symbols[3]);
+  if(number === 'IV') return getValueForAddition(symbols[0], symbols[1]) + getValueForAddition(symbols[1], symbols[2]);
 
   return 0;
 }
