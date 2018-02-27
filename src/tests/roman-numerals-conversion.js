@@ -14,11 +14,8 @@ const getValueForAddition = (current, next) => r2a(current) * getMultiplier(curr
 const r2a = (number) => {
   const symbols = number.split('');
 
-  if(number.length === 1) return lookup[number];
-
-  if(number === 'II') return getValueForAddition(symbols[0], symbols[1]) + getValueForAddition(symbols[1], symbols[2]);
-  if(number === 'III') return getValueForAddition(symbols[0], symbols[1]) + getValueForAddition(symbols[1], symbols[2]) + getValueForAddition(symbols[2], symbols[3]);
-  if(number === 'IV') return getValueForAddition(symbols[0], symbols[1]) + getValueForAddition(symbols[1], symbols[2]);
+  if(symbols.length === 1) return lookup[number];
+  if(symbols.length > 1) return symbols.reduce((total, symbol, index) => total += getValueForAddition(symbol, symbols[index + 1]), 0);
 
   return 0;
 }
