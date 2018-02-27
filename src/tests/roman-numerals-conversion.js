@@ -4,15 +4,20 @@ const expect = chai.expect;
 
 chai.use(require('sinon-chai'));
 
+
+
+const lookup = { I: 1, V: 5, X: 10 };
+
+const getMultiplier = (current, next) => lookup[current] >= lookup[next] ? 1: -1;
+
 const r2a = (number) => {
-  const lookup = { I: 1, V: 5, X: 10 };
   const symbols = number.split('');
 
   if(lookup[number]) return lookup[number];
 
-  if(number === 'II') return r2a(symbols[0]) * 1 + r2a(symbols[1]);
-  if(number === 'III') return r2a(symbols[0]) * 1 + r2a(symbols[1]) * 1 + r2a(symbols[2]);
-  if(number === 'IV') return r2a(symbols[0]) * -1 + r2a(symbols[1]);
+  if(number === 'II') return r2a(symbols[0]) * getMultiplier(symbols[0], symbols[1]) + r2a(symbols[1]);
+  if(number === 'III') return r2a(symbols[0]) * getMultiplier(symbols[0], symbols[1]) + r2a(symbols[1]) *  getMultiplier(symbols[1], symbols[2]) + r2a(symbols[2]);
+  if(number === 'IV') return r2a(symbols[0]) * getMultiplier(symbols[0], symbols[1])  + r2a(symbols[1]);
 
   return 0;
 }
