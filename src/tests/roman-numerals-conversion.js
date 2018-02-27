@@ -6,7 +6,7 @@ chai.use(require('sinon-chai'));
 
 
 
-const lookup = { I: 1, V: 5, X: 10, L:50 };
+const lookup = { I: 1, V: 5, X: 10, L: 50, C: 100 };
 
 const getMultiplier = (current, next = 'I') => lookup[current] >= lookup[next] ? 1: -1;
 const getValueForAddition = (current, next) => r2a(current) * getMultiplier(current, next);
@@ -31,5 +31,8 @@ describe('roman to arabic', () => {
   it('XXXIX => 39', () => expect(r2a('XXXIX')).to.equals(39));
   it('L => 50', () => expect(r2a('L')).to.equals(50));
   it('LI => 51', () => expect(r2a('LI')).to.equals(51));
+  it('XLVIII => 48', () => expect(r2a('XLVIII')).to.equals(48));
+  it('C => 100', () => expect(r2a('C')).to.equals(100));
+  it('XCIV => 94', () => expect(r2a('XCIV')).to.equals(94));
 
 });
