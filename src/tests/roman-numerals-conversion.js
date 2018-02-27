@@ -10,9 +10,9 @@ const r2a = (number) => {
 
   if(lookup[number]) return lookup[number];
 
-  if(number === 'II') return 2;
-  if(number === 'III') return 3;
-  if(number === 'IV') return 4;
+  if(number === 'II') return r2a('I') + r2a('I');
+  if(number === 'III') return r2a('I') + r2a('I') + r2a('I');
+  if(number === 'IV') return r2a('I') * -1 + r2a('V');
 
   return 0;
 }
